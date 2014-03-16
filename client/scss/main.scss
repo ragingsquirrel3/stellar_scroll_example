@@ -1,18 +1,50 @@
 @import "vendor/bootstrap.scss";
-@import "gatekeeper.scss";
+@import url(http://fonts.googleapis.com/css?family=Alegreya:400,700|Roboto+Condensed|Roboto:400,300);
 
 html, body {
   height: 100%;
 }
 
-#wrap {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  margin: 0 auto -45px;
-  padding: 50px 0 45px;
+.s_header {
+  h1 {
+    font-family: 'Alegreya', serif;
+  }
+  p {
+    font-family: 'Roboto Condensed', sans-serif;
+  }
 }
 
-#footer {
-  height: 45px;
+.content-holder {
+  height: 800px;
 }
+
+.holder {
+  position: relative;
+  height: 200px;
+}
+
+.scrolling-vector {
+  height: 50px;
+  top: 50px;
+  position: relative;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+// 
+// #wrap {
+//   min-height: 100%;
+//   height: auto !important;
+//   height: 100%;
+//   margin: 0 auto -45px;
+//   padding: 50px 0 45px;
+// }
+// 
+// #footer {
+//   height: 45px;
+// }

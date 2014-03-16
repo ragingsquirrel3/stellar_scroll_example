@@ -6,14 +6,33 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
 
   body
-    #wrap              
-      
-        //- yield content
-        block content
+  
+    //- header 
+    .jumbotron
+      .container.s_header
+        h1 Hello World
+        p SOME EXPLANATION GOES HERE
         
-    #footer
-      .container.l_footer-container.s_footer-container
-        p &copy;2014 Abraham Lincoln: Web Developer
+    .content-holder
+      h1 Content Holder
+    .holder
+      h1.red.scrolling-vector("data-stellar-ratio"="1") Red
+      h1.blue.scrolling-vector("data-stellar-ratio"="0.9") Blue
+      h1.red.scrolling-vector("data-stellar-ratio"="0.8") Red
+    .content-holder
+      h1 Content Holder 
+    .holder
+      h1.red.scrolling-vector("data-stellar-ratio"="1.5") Red
+      h1.blue.scrolling-vector("data-stellar-ratio"="1.0") Blue
+      h1.red.scrolling-vector("data-stellar-ratio"="0.5") Red 
+    .content-holder
+      h1 Content Holder
+    .content-holder
+      h1 Content Holder
+    //- #wrap              
+    //- #footer
+    //-   .container.l_footer-container.s_footer-container
+    //-     p &copy;2014 Abraham Lincoln: Web Developer
 
     //- js: Single file in production, otherwise load requirejs
     if process.env.ENV == 'production'
