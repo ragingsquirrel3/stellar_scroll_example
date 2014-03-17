@@ -14,6 +14,74 @@ html, body {
   }
 }
 
+// prompt holder and animated vectors
+.prompt-container {
+  position: relative;
+  height: 600px;
+}
+
+
+.prompt-vector {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  // temp
+  border: 1px solid green;
+  top: 150px;
+  &.a-v {
+    top: 150px;
+    left: 50%;
+  }
+  &.b-v {
+    top: 160px;
+    left: 25%;
+  }
+  &.c-v {
+    top: 130px;
+    right: 10%;
+  }
+  &.d-v {
+    top: 165px;
+    right: 40%;
+  } 
+}
+
+// ocean
+.ocean {
+  position: relative;
+  height: 119px;
+}
+
+.wave {
+  position: absolute;
+  width: 100%;
+  height: 482px;
+  top: 0px;
+  background-image: url("../img/wave_vector.png");
+  background-repeat-y: none;
+  
+  &.a-v {
+    background-position-x: 0px;
+    opacity: 0.3;
+  }
+  &.b-v {
+    background-position-x: 45px;
+    opacity: 0.5;
+  }
+  &.c-v {
+    background-position-x: 90px;
+    opacity: 0.9;
+  }
+}
+
+.wave-body {
+  width: 100%;
+  background-color: black;
+  height: 400px;
+  position: relative;
+  top: 82px;
+}
+
 .content-holder {
   height: 800px;
 }
@@ -29,13 +97,6 @@ html, body {
   position: relative;
 }
 
-.red {
-  color: red;
-}
-
-.blue {
-  color: blue;
-}
 // 
 // #wrap {
 //   min-height: 100%;
