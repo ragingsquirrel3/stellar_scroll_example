@@ -50,6 +50,18 @@ module.exports = (grunt) ->
       #   files: [
       #     { expand: true, cwd: DEV_BUILD_PATH, src:['**'], dest: PRODUCTION_BUILD_PATH },
       #   ]
+
+    jade:
+      development:
+        options:
+          pretty: false
+
+        files: [
+          {
+            src: "#{APP_PATH}/index.jade"
+            dest: "#{DEV_BUILD_PATH}/index.html"
+          }
+        ]
   
     # run tests with mocha test, mocha test:unit, or mocha test:controllers
     mochaTest:
@@ -79,6 +91,9 @@ module.exports = (grunt) ->
         files: "#{APP_PATH}/coffee/**/*.coffee"
         tasks: 'coffee:development'
       jade:
+        files: "#{APP_PATH}/index.jade"
+        tasks: 'jade:development'
+      jadeClient:
         files: "#{TEMPLATES_PATH}/**/*.jade"
         tasks: 'clientTemplates'
       sass:
@@ -114,6 +129,7 @@ module.exports = (grunt) ->
     'copy:development'
     'sass:development'
     'coffee:development'
+    'jade:development'
     'clientTemplates'
   ]     
         
