@@ -1,5 +1,7 @@
 define ['jquery', 'd3'], ($, d3) ->
   class SlippyBarChart
+    CHART_PADDING = 50
+
     timeScale: null
     data: null
     xScale: null
@@ -8,16 +10,14 @@ define ['jquery', 'd3'], ($, d3) ->
     constructor: (options={}) ->
       @timeScale = options.timeScale if options.timeScale
       @data = options.data if options.data
-
       windowHeight = options.windowHeight ? 400
-
 
       @yScale = d3.scale.linear()
         .domain([0, 25000])
-        .range([windowHeight-50, 50])
+        .range([windowHeight-CHART_PADDING, CHART_PADDING])
 
     render: (options={}) ->
-      console.log 'data: ', @data
+      yearAtLeft = options.yearAtLeft ? @timeScale.domain()[0]
 
       bars = d3.select('#bar-target').selectAll('.bar').data @data
 
@@ -25,15 +25,20 @@ define ['jquery', 'd3'], ($, d3) ->
       bars.enter().append('div')
         .attr
           class: 'bar'
-
-
+          
       # update
       bars
         .style
-          width: '50px'
+          width: "#{CHART_PADDING}px"
           height: (d) => "#{@yScale d.price}px"
-          left: (d, i) -> "#{i * 50 + 50}px"
-          bottom: '50px'
+          bottom: "#{CHART_PADDING}px"
+          left: (d, i) =>
+            # original point along timeline
+            if yearAtLeft < d.year
+              "#{@timeScale d.year}px"
+            # final state
+            else
+              "#{@timeScale(yearAtLeft) + i * CHART_PADDING + CHART_PADDING}px"
 
             
 

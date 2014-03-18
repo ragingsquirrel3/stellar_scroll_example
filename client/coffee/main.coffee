@@ -64,5 +64,10 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'stellar'], ($, d3, SlippyBarChar
     data: data
   chart.render()
 
+  $(window).scroll (e) ->
+    _yearAtLeft = timeScale.invert $(window).scrollLeft() + 50
+    chart.render
+      yearAtLeft: _yearAtLeft
+
   # activate stellar scroll parallax scroll effect
   $(window).stellar()
