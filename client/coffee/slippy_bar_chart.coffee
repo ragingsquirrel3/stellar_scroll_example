@@ -18,6 +18,7 @@ define ['jquery', 'd3'], ($, d3) ->
 
     render: (options={}) ->
       yearAtLeft = options.yearAtLeft ? @timeScale.domain()[0]
+      xLeft = options.xLeft ? 0
 
       bars = d3.select('#bar-target').selectAll('.bar').data @data
 
@@ -25,7 +26,7 @@ define ['jquery', 'd3'], ($, d3) ->
       bars.enter().append('div')
         .attr
           class: 'bar'
-          
+
       # update
       bars
         .style
@@ -34,11 +35,13 @@ define ['jquery', 'd3'], ($, d3) ->
           bottom: "#{CHART_PADDING}px"
           left: (d, i) =>
             # original point along timeline
-            if yearAtLeft < d.year
-              "#{@timeScale d.year}px"
-            # final state
+            xAtYear = @timeScale d.year
+            # if scrolling position is less than timeline position, scroll with page
+            if (xLeft + ((i + 1) * CHART_PADDING)) < xAtYear
+              "#{xAtYear}px"
+            # otherwise, final 'fixed' state
             else
-              "#{@timeScale(yearAtLeft) + i * CHART_PADDING + CHART_PADDING}px"
+              "#{(xLeft + ((i + 1) * CHART_PADDING))}px"
 
             
 
