@@ -1,0 +1,22 @@
+//bars
+.bar {
+  position: absolute;
+  background-color: red;
+
+  &.antiquity {
+    background-color: #D4D5C0;
+  }
+}
+
+// labels
+.bar-label {
+  position: absolute;
+  
+  &.antiquity {
+    color: #D4D5C0;
+  }
+}
+
+.label-price {
+  font-family: Roboto, sans-serif;
+}
