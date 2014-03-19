@@ -14,12 +14,25 @@ html
         #bar-target
       .scrolling-zone.intro
         .jumbotron
-          h1 Hello World
+          h1 Human Cost
+          p= 'Entered as part of the '
+            a(href="http://www.informationisbeautifulawards.com/2014/02/data-viz-challenge-human-cost/") Kantar Information Is Beautiful Awards.
+            | The data can be found
+            a(href="http://bit.ly/human_costs#sthash.xfoqddP5.dpuf")= ' here'
+            | .
 
+        .human-sprite-container
+          .human-sprite.gladiator("data-stellar-ratio"="1")
+          .human-sprite.children("data-stellar-ratio"="1.3")
+          .human-sprite.woman1("data-stellar-ratio"="1.8")
+          .human-sprite.child1("data-stellar-ratio"="1.7")
+          .human-sprite.woman2("data-stellar-ratio"="3.1")
+          .human-sprite.baby("data-stellar-ratio"="1.4")
+          .human-sprite.child2("data-stellar-ratio"="1.1")
 
       .scrolling-zone
         h1 scroll 2
-      .scrolling-zone
+      .scrolling-zone.antiquity
         h1 scroll 3
 
 

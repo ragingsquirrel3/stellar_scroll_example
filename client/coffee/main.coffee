@@ -27,7 +27,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'stellar'], ($, d3, SlippyBarChar
   # TEMP
   # declare a scalle from year 500 BCE to 2050, with range corresponding to height
   timeScale = d3.scale.linear()
-    .domain([-1500, 2050])
+    .domain([-2500, 2050])
     .range([0, 8000])
   axisFn = d3.svg.axis()
     .orient('top')
@@ -47,14 +47,17 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'stellar'], ($, d3, SlippyBarChar
     {
       year: -500
       price: 10000
+      klass: 'antiquity'
     },
     {
       year: -400
       price: 20000
+      klass: 'antiquity'
     },
     {
       year: 1200
       price: 1000
+      klass: 'antiquity'
     }
   ]
 
@@ -72,4 +75,4 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'stellar'], ($, d3, SlippyBarChar
       xLeft: xLeft
 
   # activate stellar scroll parallax scroll effect
-  $(window).stellar()
+  $(window).stellar verticalScrolling: false

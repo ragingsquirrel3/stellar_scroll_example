@@ -25,7 +25,7 @@ define ['jquery', 'd3'], ($, d3) ->
       # enter
       bars.enter().append('div')
         .attr
-          class: 'bar'
+          class: (d) -> "#{d.klass} bar"
 
       # update
       bars
@@ -42,8 +42,6 @@ define ['jquery', 'd3'], ($, d3) ->
             # otherwise, final 'fixed' state
             else
               "#{(xLeft + ((i + 1) * CHART_PADDING))}px"
-
-            
 
       # exit
       bars.exit().remove()
