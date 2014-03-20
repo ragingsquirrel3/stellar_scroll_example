@@ -26,58 +26,58 @@ define ['jquery', 'd3'], ($, d3) ->
     # from the d param, return a string of html content used build the labels
     _labelHtmlForData: (d) ->
       """
-        <h1>#{d.label}<h1>
-        <h1 class='label-price'>$#{d.price}</h1>
+        <div class='#{d.klass} bar-label'>
+          <h1 class='label-price'>$#{d.price}</h1>
+          <p>#{d.label}</p>
+        </div>
       """
+
+    # helper function for 'fixed place'
+    _fixedLeftFromData: (d, i, xLeft) ->
+      (xLeft + (i * (@barWidth + CHART_SPACING)) + CHART_PADDING)
 
     render: (options={}) ->
       yearAtLeft = options.yearAtLeft ? @timeScale.domain()[0]
       xLeft = options.xLeft ? 0
+      data = options.data
+      yScale = @yScale
 
       # *** BARS ***
-      bars = d3.select('#bar-target').selectAll('.bar').data @data
+      bars = d3.select('#bar-target').selectAll('.bar').data data
 
       # enter
       bars.enter().append('div')
         .attr
           class: (d) -> "#{d.klass} bar"
+        .style
+          width: "#{@barWidth}px"
+          height: '0px'
+          bottom: "#{CHART_PADDING}px"
+        .each (d) ->
+          d3.select(@).transition().duration(1000)
+            .style
+              height: (d) => "#{yScale d.price}px"
+        .html (d) => @_labelHtmlForData d
+
 
       # update
       bars
         .style
-          width: "#{@barWidth}px"
-          height: (d) => "#{@yScale d.price}px"
-          bottom: "#{CHART_PADDING}px"
           left: (d, i) =>
             # original point along timeline
             xAtYear = @timeScale d.year
             # if scrolling position is less than timeline position, scroll with page
-            if (xLeft + (i * (@barWidth + CHART_SPACING)) + CHART_PADDING) < xAtYear
+            if @_fixedLeftFromData(d, i, xLeft) < xAtYear and d.year < 2000
               "#{xAtYear}px"
             # otherwise, final 'fixed' state
             else
-              "#{(xLeft + (i * (@barWidth + CHART_SPACING)) + CHART_PADDING)}px"
+              "#{@_fixedLeftFromData(d, i, xLeft)}px"
+        .classed 'inactive', (d, i) =>
+          xAtYear = @timeScale d.year
+          !(@_fixedLeftFromData(d, i, xLeft) < xAtYear)
 
             # te,p
             # "#{xAtYear}px"
 
       # exit
       bars.exit().remove()
-
-      # *** LABELS ***
-      labels = d3.select('#bar-target').selectAll('.bar-label').data @data
-
-      labels.enter().append('div')
-        .attr
-          class: (d) -> "#{d.klass} bar-label"
-        .style
-          top: (d) => "#{Math.max(Math.abs(@yScale.range()[1] - @yScale(d.price)) - LABEL_HEIGHT, @yScale.range()[0])}px"
-        .html (d) =>
-          @_labelHtmlForData d
-
-      labels
-        .style
-          left: (d) => "#{@timeScale d.year}px"
-          # top: '200px'
-
-      labels.exit().remove()

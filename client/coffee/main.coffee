@@ -19,7 +19,7 @@ requirejs.config
     'jade': exports: 'jade'
     'd3': exports: 'd3'
 
-requirejs ['jquery', 'd3', 'slippy_bar_chart', 'stellar'], ($, d3, SlippyBarChart) ->
+requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3, SlippyBarChart, _) ->
 
   # make each scrolling zone's width equal to window width
   $('.scrolling-zone').width $(window).width()
@@ -36,13 +36,19 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'stellar'], ($, d3, SlippyBarChar
     price: Number(d.inflationAdjusted.split(',').join(''))
     year: _year
     label: "#{d.context} #{d.detail}"
-  d3.csv 'data.csv', parseFn, (err, data) ->
+    klass: d.klass ? ''
+
+  # load the data and render
+  d3.csv 'data2.csv', parseFn, (err, data) ->
+
+    data = _.sortBy data, (d) -> d.year
+    preModernData = _.filter data, (d) -> d.year < 2000
 
     # TEMP
     # declare a scalle from year 500 BCE to 2050, with range corresponding to height
     timeScale = d3.scale.linear()
       .domain([-2500, 3000])
-      .range([0, 8000])
+      .range([0, 12000])
     axisFn = d3.svg.axis()
       .orient('top')
       .scale(timeScale)
@@ -83,7 +89,8 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'stellar'], ($, d3, SlippyBarChar
       windowWidth: $(window).width()
       windowHeight: $(window).height()
       data: data
-    chart.render()
+    chart.render
+      data: preModernData
 
     $(window).scroll (e) ->
       xLeft = $(window).scrollLeft()
@@ -91,6 +98,8 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'stellar'], ($, d3, SlippyBarChar
       chart.render
         yearAtLeft: _yearAtLeft
         xLeft: xLeft
+        data: if _yearAtLeft < 2000 then preModernData else data
+
 
     # activate stellar scroll parallax scroll effect
     $(window).stellar verticalScrolling: false
