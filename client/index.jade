@@ -7,6 +7,9 @@ html
 
   body
     #background-zone
+      .bg-zone.antiquity.active
+      .bg-zone.colonial
+      .bg-zone.modern
     
     //- scrolling elements
     #scroll-container
@@ -33,9 +36,11 @@ html
       .scrolling-zone
       .scrolling-zone.antiquity
       .scrolling-zone
-        h1 pre colonial spacer
       .scrolling-zone.colonial
         h1 colonial
+        .ship-container
+          .ship.ship-1("data-stellar-ratio"="1.15")
+          .ship.ship-2("data-stellar-ratio"="1.30")
       .scrolling-zone
         h1 pre modern spacer
       .scrolling-zone.modern

@@ -4,6 +4,7 @@ define ['jquery', 'd3'], ($, d3) ->
     CHART_SPACING = 5
     LABEL_HEIGHT = 128
 
+    currentEra: 'antiquity' # antiquity, colonial, modern
     barWidth: CHART_PADDING
     timeScale: null
     data: null
@@ -11,6 +12,8 @@ define ['jquery', 'd3'], ($, d3) ->
     yScale: null
 
     constructor: (options={}) ->
+
+
       @timeScale = options.timeScale if options.timeScale
       @data = options.data if options.data
       windowWidth = options.windowWidth ? 400
@@ -36,11 +39,28 @@ define ['jquery', 'd3'], ($, d3) ->
     _fixedLeftFromData: (d, i, xLeft) ->
       (xLeft + (i * (@barWidth + CHART_SPACING)) + CHART_PADDING)
 
+    # based on year, selects which background should be active
+    _changeBackgroundImage: (year) ->
+      newEra = if year < -500
+        'antiquity'
+      else if year < 1400
+        'colonial'
+      else
+        'modern'
+
+      if newEra != @currentEra
+        @currentEra = newEra
+        $('.bg-zone').removeClass 'active'
+        $(".bg-zone.#{@currentEra}").addClass 'active'
+
     render: (options={}) ->
       yearAtLeft = options.yearAtLeft ? @timeScale.domain()[0]
       xLeft = options.xLeft ? 0
       data = options.data
       yScale = @yScale
+
+      # maybe change background
+      @_changeBackgroundImage yearAtLeft
 
       # *** BARS ***
       bars = d3.select('#bar-target').selectAll('.bar').data data
