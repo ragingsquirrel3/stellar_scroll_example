@@ -5,6 +5,7 @@ define ['jquery', 'd3'], ($, d3) ->
     LABEL_HEIGHT = 128
 
     barWidth: CHART_PADDING
+    windowHeight: null
     timeScale: null
     data: null
     xScale: null
@@ -14,14 +15,14 @@ define ['jquery', 'd3'], ($, d3) ->
       @timeScale = options.timeScale if options.timeScale
       @data = options.data if options.data
       windowWidth = options.windowWidth ? 400
-      windowHeight = options.windowHeight ? 400
+      @windowHeight = options.windowHeight ? 400
 
       # calc bar width based on window size and data points
       @barWidth = (windowWidth - (2 * CHART_PADDING)) / @data.length - CHART_SPACING
 
       @yScale = d3.scale.linear()
         .domain([0, 100000])
-        .range([windowHeight- 2* CHART_PADDING , 0])
+        .range([@windowHeight - 2* CHART_PADDING , 0])
 
       @_renderyScale()
 
@@ -31,7 +32,7 @@ define ['jquery', 'd3'], ($, d3) ->
         .scale(@yScale)
         
 
-      svg = d3.select('#viz').selectAll('svg').data([null])
+      svg = d3.select('#y-axis').selectAll('svg').data([null])
       svg.enter().append('svg')
 
       yAxis = svg.selectAll('#price-scale').data([null])
@@ -59,6 +60,7 @@ define ['jquery', 'd3'], ($, d3) ->
       xLeft = options.xLeft ? 0
       data = options.data
       yScale = @yScale
+      windowHeight = @windowHeight
 
       # *** BARS ***
       bars = d3.select('#bar-target').selectAll('.bar').data data
@@ -74,7 +76,7 @@ define ['jquery', 'd3'], ($, d3) ->
         .each (d) ->
           d3.select(@).transition().duration(1000)
             .style
-              height: (d) => "#{Math.max(yScale(d.price), 1)}px"
+              height: (d) => "#{Math.max(windowHeight - yScale(d.price) - 75, 1)}px"
         .html (d) => @_labelHtmlForData d
 
 
