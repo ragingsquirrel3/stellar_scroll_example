@@ -61,7 +61,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
     axis.enter().append('g')
       .attr
         id: 'time-scale'
-        transform: "translate(0, 20)"
+        transform: "translate(70, 30)"
       .call axisFn
 
     # data = [

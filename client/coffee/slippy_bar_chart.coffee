@@ -1,6 +1,8 @@
 define ['jquery', 'd3'], ($, d3) ->
   class SlippyBarChart
     CHART_PADDING = 30
+    Y_PADDING = 30
+    X_PADDING = 70
     CHART_SPACING = 5
     LABEL_HEIGHT = 128
     # data for time period labels
@@ -39,7 +41,7 @@ define ['jquery', 'd3'], ($, d3) ->
       @windowHeight = options.windowHeight ? 400
 
       # calc bar width based on window size and data points
-      @barWidth = (windowWidth - (2 * CHART_PADDING)) / @data.length - CHART_SPACING
+      @barWidth = (windowWidth - (2 * X_PADDING)) / @data.length - CHART_SPACING
 
       @yScale = d3.scale.linear()
         .domain([0, 100000])
@@ -51,6 +53,8 @@ define ['jquery', 'd3'], ($, d3) ->
       yAxisfn = d3.svg.axis()
         .orient("left")
         .scale(@yScale)
+        .tickFormat (d) ->
+          "$" + d
         
 
       svg = d3.select('#y-axis').selectAll('svg').data([null])
@@ -60,7 +64,7 @@ define ['jquery', 'd3'], ($, d3) ->
       yAxis.enter().append('g')
         .attr
           id: "price-scale"
-          transform: "translate(60, #{CHART_PADDING})"
+          transform: "translate(#{X_PADDING}, #{CHART_PADDING})"
         .call yAxisfn
 
     # from the d param, return a string of html content used build the labels
@@ -75,7 +79,7 @@ define ['jquery', 'd3'], ($, d3) ->
 
     # helper function for 'fixed place'
     _fixedLeftFromData: (d, i, xLeft) ->
-      (xLeft + (i * (@barWidth + CHART_SPACING)) + CHART_PADDING)
+      (xLeft + (i * (@barWidth + CHART_SPACING)) + X_PADDING)
 
     # based on year, selects which background should be active
     _changeBackgroundImage: (year) ->
