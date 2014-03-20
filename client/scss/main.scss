@@ -167,10 +167,45 @@ p {
   z-index: 2;
 }
 
+// antiquity
+
+.egyptian-container {
+  top: 150px;
+  left: 75px;
+  position: relative;
+}
+
+.egyptian {
+  position: absolute;
+  height: 191px;
+  &.egyptian-1 {
+    background-image: url("../img/egypt1.png");
+    width: 161px;
+  }
+  &.egyptian-2 {
+    width: 130px;
+    background-image: url("../img/egypt2.png");
+  }
+  &.b {
+    top: 5px;
+    left: 50px;
+  }
+  &.c {
+    top: 15px;
+    left: 80px;
+  }
+  &.d {
+    top: 20px;
+    left: 105px;
+  }
+}
+
+// colonial
+
 .ship-container {
   position: relative;
   top: 100px;
-  left: 75px;
+  left: 40%;
 }
 
 .ship {
