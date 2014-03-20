@@ -20,9 +20,14 @@ requirejs.config
     'd3': exports: 'd3'
 
 requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3, SlippyBarChart, _) ->
+  NUM_SCROLLERS = 7
+  SCROLLER_SIZE_FACTOR = 1.5
+
+  windowWidth = $(window).width()
 
   # make each scrolling zone's width equal to window width
-  $('.scrolling-zone').width $(window).width()
+  $('.scrolling-zone').width windowWidth * SCROLLER_SIZE_FACTOR
+  $('#scroll-container').width windowWidth * NUM_SCROLLERS * SCROLLER_SIZE_FACTOR
 
 
   # open and parse the data csv, render when data is ready
@@ -47,8 +52,8 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
     # TEMP
     # declare a scalle from year 500 BCE to 2050, with range corresponding to height
     timeScale = d3.scale.linear()
-      .domain([-2500, 3000])
-      .range([0, 12000])
+      .domain([-2500, 4000])
+      .range([0, windowWidth * NUM_SCROLLERS * SCROLLER_SIZE_FACTOR])
     axisFn = d3.svg.axis()
       .orient('top')
       .scale(timeScale)
@@ -98,7 +103,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
       chart.render
         yearAtLeft: _yearAtLeft
         xLeft: xLeft
-        data: if _yearAtLeft < 2000 then preModernData else data
+        data: if _yearAtLeft < 3000 then preModernData else data
 
 
     # activate stellar scroll parallax scroll effect

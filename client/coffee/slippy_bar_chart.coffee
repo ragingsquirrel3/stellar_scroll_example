@@ -56,7 +56,7 @@ define ['jquery', 'd3'], ($, d3) ->
         .each (d) ->
           d3.select(@).transition().duration(1000)
             .style
-              height: (d) => "#{yScale d.price}px"
+              height: (d) => "#{Math.max(yScale(d.price), 1)}px"
         .html (d) => @_labelHtmlForData d
 
 
@@ -67,7 +67,7 @@ define ['jquery', 'd3'], ($, d3) ->
             # original point along timeline
             xAtYear = @timeScale d.year
             # if scrolling position is less than timeline position, scroll with page
-            if @_fixedLeftFromData(d, i, xLeft) < xAtYear and d.year < 2000
+            if @_fixedLeftFromData(d, i, xLeft) < xAtYear
               "#{xAtYear}px"
             # otherwise, final 'fixed' state
             else
@@ -75,9 +75,3 @@ define ['jquery', 'd3'], ($, d3) ->
         .classed 'inactive', (d, i) =>
           xAtYear = @timeScale d.year
           !(@_fixedLeftFromData(d, i, xLeft) < xAtYear)
-
-            # te,p
-            # "#{xAtYear}px"
-
-      # exit
-      bars.exit().remove()

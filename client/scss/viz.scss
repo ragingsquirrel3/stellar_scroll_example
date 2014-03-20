@@ -24,18 +24,29 @@
   &.antiquity {
     background-color: #D4D5C0;
   }
+  &.colonial {
+    background-color: #5f6673;
+  }
+  &.modern {
+    background-color: #3E3390;
+  }
 }
 
 // labels
 .bar-label {
   position: absolute;
+  width: 200px;
+  top: -100px;
   opacity: 1;
 
   -webkit-transition: opacity 1s; // For Safari 3.1 to 6.0
   transition: opacity 1s;
 
   &.antiquity {
-    color: #D4D5C0;
+    color: #796737;
+  }
+  &.colonial {
+    color: #0c2612;
   }
 }
 
