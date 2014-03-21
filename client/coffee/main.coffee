@@ -55,7 +55,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
       .scale(timeScale)
       .tickFormat (d) ->
         if d < 0 then d * -1 + " BC"
-        else if d == 0 then d
+        else if d is 0 then d
         else d + " AD"
 
     svg = d3.select('#viz').selectAll('svg').data([null])
