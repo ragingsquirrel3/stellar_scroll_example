@@ -21,6 +21,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
 
   windowWidth = $(window).width()
 
+
   # make each scrolling zone's width equal to window width
   $('.scrolling-zone').width windowWidth * SCROLLER_SIZE_FACTOR
   $('#scroll-container').width windowWidth * NUM_SCROLLERS * SCROLLER_SIZE_FACTOR
@@ -40,7 +41,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
 
   # load the data and render
   d3.csv 'data2.csv', parseFn, (err, data) ->
-
+    windowHeight = $(window).height()
     data = _.sortBy data, (d) -> d.year
     preModernData = _.filter data, (d) -> d.year < 2000
 
@@ -50,9 +51,12 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
       .domain([-2500, 4000])
       .range([0, windowWidth * NUM_SCROLLERS * SCROLLER_SIZE_FACTOR])
     axisFn = d3.svg.axis()
-      .orient('top')
+      .orient('bottom')
       .scale(timeScale)
-      .tickFormat(d3.format())
+      .tickFormat (d) ->
+        if d < 0 then d * -1 + " BC"
+        else if d == 0 then d
+        else d + " AD"
 
     svg = d3.select('#viz').selectAll('svg').data([null])
     svg.enter().append('svg')
@@ -61,7 +65,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
     axis.enter().append('g')
       .attr
         id: 'time-scale'
-        transform: "translate(70, 30)"
+        transform: "translate(70, #{windowHeight - 30})"
       .call axisFn
 
     # data = [

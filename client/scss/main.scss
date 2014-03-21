@@ -14,6 +14,23 @@ p {
   font-family: Roboto, sans-serif;
 }
 
+#time-scale, #price-scale{
+  fill: none;
+  stroke: white;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.tick{
+  line{
+    stroke-width: 10;
+  }
+  text{
+    fill:white;
+    stroke:none;
+  }
+} 
+
 #y-axis{
   position:fixed;
   width:100%;
@@ -103,6 +120,7 @@ p {
   display: inline-block;
   vertical-align: top;
   position: relative;
+  padding-left: 70px;
 
   &.intro {
     background-color: white;
