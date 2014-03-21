@@ -26,9 +26,15 @@ define ['jquery', 'd3'], ($, d3) ->
         .domain([0, 100000])
         .range([@windowHeight - 2* CHART_PADDING , 0])
 
-      @_renderyScale()
+      @_renderyScale(windowWidth)
 
-    _renderyScale: ->
+    _renderyScale: (width) ->
+      yLinesfn = d3.svg.axis()
+        .orient("right")
+        .scale(@yScale)
+        .tickSize(width-X_PADDING)
+
+
       yAxisfn = d3.svg.axis()
         .orient("left")
         .scale(@yScale)
@@ -45,6 +51,12 @@ define ['jquery', 'd3'], ($, d3) ->
           id: "price-scale"
           transform: "translate(#{X_PADDING}, #{CHART_PADDING})"
         .call yAxisfn
+      yAxisLines = svg.selectAll('#price-scale-lines').data([null])
+      yAxisLines.enter().append('g')
+        .attr
+          id: 'price-scale-lines'
+          transform: "translate(#{X_PADDING},#{CHART_PADDING})"
+        .call yLinesfn
 
     # from the d param, return a string of html content used build the labels
     _labelHtmlForData: (d) ->
