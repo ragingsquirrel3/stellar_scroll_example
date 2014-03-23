@@ -1,6 +1,6 @@
 @import "vendor/bootstrap.scss";
 @import 'viz';
-@import url(http://fonts.googleapis.com/css?family=Alegreya:400,700|Roboto+Condensed|Roboto:400,300);
+// @import url(http://fonts.googleapis.com/css?family=Alegreya:400,700|Roboto+Condensed|Roboto:400,300);
 
 html, body {
   height: 100%;
@@ -45,6 +45,20 @@ p {
   z-index: 3;
 }
 
+#scroll-prompt {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  margin-top: -50px;
+  right: 5em;
+  top: 50%;
+  cursor: pointer;
+  //temp
+  border: 1px solid red;
+  
+  z-index: 4;
+}
+
 #viz {
   position: absolute;
   width: 100%;
@@ -81,7 +95,7 @@ p {
 
   &.intro {
     background-color: white;
-    z-index: 1;
+    z-index: 3;
   }
 
   &.antiquity {

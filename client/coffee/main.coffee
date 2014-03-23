@@ -2,7 +2,6 @@ VENDOR = "vendor"
 requirejs.config
   paths:
     'jquery': "#{VENDOR}/jquery.min"
-    'backbone': "#{VENDOR}/backbone.min"
     'underscore': "#{VENDOR}/underscore.min"
     'jade': "#{VENDOR}/jade.min"
     'stellar': "#{VENDOR}/stellar.min"
@@ -12,22 +11,27 @@ requirejs.config
     'stellar':
       deps: ['jquery']
       exports: 'stellar'
-    'backbone':
-      deps: ['underscore', 'jquery']
-      exports: 'Backbone'
     'underscore': exports: '_'
     'jade': exports: 'jade'
     'd3': exports: 'd3'
 
 requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3, SlippyBarChart, _) ->
   NUM_SCROLLERS = 7
-  SCROLLER_SIZE_FACTOR = 1.5
+  SCROLLER_SIZE_FACTOR = 1.25
+  promptIsVisible = true
 
   windowWidth = $(window).width()
 
   # make each scrolling zone's width equal to window width
   $('.scrolling-zone').width windowWidth * SCROLLER_SIZE_FACTOR
   $('#scroll-container').width windowWidth * NUM_SCROLLERS * SCROLLER_SIZE_FACTOR
+  
+  # on clicking the prompt, scroll a little to the right and hide the prompt
+  $('#scroll-prompt').click (e) ->
+    # TODO, scroll to the right
+    console.log 'scroll me gently'
+    promptIsVisible = false
+    $(e.currentTarget).fadeOut()
 
 
   # open and parse the data csv, render when data is ready
@@ -57,6 +61,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
     axisFn = d3.svg.axis()
       .orient('top')
       .scale(timeScale)
+      .tickFormat(d3.format())
 
     svg = d3.select('#viz').selectAll('svg').data([null])
     svg.enter().append('svg')
@@ -98,6 +103,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
       data: preModernData
 
     $(window).scroll (e) ->
+      if promptIsVisible then $('#scroll-prompt').fadeOut()
       xLeft = $(window).scrollLeft()
       _yearAtLeft = timeScale.invert xLeft + 50
       chart.render

@@ -3,6 +3,24 @@ define ['jquery', 'd3'], ($, d3) ->
     CHART_PADDING = 30
     CHART_SPACING = 5
     LABEL_HEIGHT = 128
+    # data for time period labels
+    ERA_LABELS_DATA = [
+      {
+        label: 'Slavery in Antiquity'
+        year: -600
+        klass: 'antiquity'
+      },
+      {
+        label: 'Atlantic Slave Trade'
+        year: 1250
+        klass: 'colonial'
+      },
+      {
+        label: 'Modern Human Trafficking'
+        year: 3000
+        klass: 'modern'
+      }
+    ]
 
     currentEra: 'antiquity' # antiquity, colonial, modern
     barWidth: CHART_PADDING
@@ -28,9 +46,10 @@ define ['jquery', 'd3'], ($, d3) ->
 
     # from the d param, return a string of html content used build the labels
     _labelHtmlForData: (d) ->
+      priceAsString = "$#{d3.format(",.0f")(d.price)}"
       """
         <div class='#{d.klass} bar-label'>
-          <h1 class='label-price'>$#{d.price}</h1>
+          <h1 class='label-price'>#{priceAsString}</h1>
           <p>#{d.label}</p>
         </div>
       """
@@ -95,3 +114,28 @@ define ['jquery', 'd3'], ($, d3) ->
         .classed 'inactive', (d, i) =>
           xAtYear = @timeScale d.year
           !(@_fixedLeftFromData(d, i, xLeft) < xAtYear)
+          
+      # time period labels
+      labels = d3.select('#bar-target').selectAll('.era-label').data ERA_LABELS_DATA
+      
+      # enter
+      labels.enter().append('h1')
+        .attr
+          class: (d) -> "#{d.klass} era-label"
+        .style
+          top: (d, i) -> "#{i + 1}em"
+          left: (d) => "#{@timeScale(d.year)}px"
+        .text (d) -> d.label
+          
+      #update
+      labels
+        .style
+          left: (d, i) =>
+            # original point along timeline
+            xAtYear = @timeScale d.year
+            # if scrolling position is less than timeline position, scroll with page
+            if @_fixedLeftFromData(d, i, xLeft) < xAtYear
+              "#{xAtYear}px"
+            # otherwise, final 'fixed' state
+            else
+              "#{@_fixedLeftFromData(d, 0, xLeft)}px"
