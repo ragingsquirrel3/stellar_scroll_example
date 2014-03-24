@@ -123,7 +123,7 @@ p {
     margin-top: -50px;
     right: 25%;
     top: 50%;
-    z-index: 4;
+    z-index: 6;
   }
 }
 
@@ -133,7 +133,7 @@ p {
   width: 400px;
   padding: 1em;
   background-color: #eeeeee;
-  z-index: 4;
+  z-index: 6;
 }
 
 #viz {
@@ -172,7 +172,7 @@ p {
 
   &.intro {
     background-color: white;
-    z-index: 3;
+    z-index: 6;
   }
 
   &.antiquity {
