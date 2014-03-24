@@ -40,12 +40,26 @@ module.exports = (grunt) ->
           src: ["*.coffee", "**/*.coffee"]
           ext: ".js"
         ]
+      production:
+        options:
+          sourceMap: true
+        files: [
+          expand: true
+          cwd: "#{APP_PATH}/coffee"
+          dest: "#{PRODUCTION_BUILD_PATH}/js"
+          src: ["*.coffee", "**/*.coffee"]
+          ext: ".js"
+        ]
 
     copy:
       development:
         files: [
           { expand: true, cwd: "#{APP_PATH}/public", src:['**'], dest: DEV_BUILD_PATH }
         ]
+      production:
+        files: [
+          { expand: true, cwd: "#{APP_PATH}/public", src:['**'], dest: PRODUCTION_BUILD_PATH }
+        ]  
       # production:
       #   files: [
       #     { expand: true, cwd: DEV_BUILD_PATH, src:['**'], dest: PRODUCTION_BUILD_PATH },
@@ -62,6 +76,16 @@ module.exports = (grunt) ->
             dest: "#{DEV_BUILD_PATH}/index.html"
           }
         ]
+      production:
+        options:
+          pretty: false
+
+        files: [
+          {
+            src: "#{APP_PATH}/index.jade"
+            dest: "#{PRODUCTION_BUILD_PATH}/index.html"
+          }
+        ]  
   
     # run tests with mocha test, mocha test:unit, or mocha test:controllers
     mochaTest:
@@ -80,11 +104,18 @@ module.exports = (grunt) ->
         options:
           server: './app'
           port: 3000
+      production:
+        options:
+          server: './app'
+          port: 3000    
     
     sass:
       development:
         files:
           "server/client_build/development/stylesheets/main.css": "client/scss/main.scss"
+      production:
+        files:
+          "server/client_build/production/stylesheets/main.css": "client/scss/main.scss"    
     
     watch:
       coffee:
@@ -131,7 +162,16 @@ module.exports = (grunt) ->
     'coffee:development'
     'jade:development'
     'clientTemplates'
-  ]     
+  ]  
+
+  grunt.registerTask 'production', [
+    'clean:production'
+    'copy:production'
+    'sass:production'
+    'coffee:production'
+    'jade:production'
+    # 'clientTemplates'
+  ]   
         
   grunt.registerTask 'default', [
     # 'env:development'
