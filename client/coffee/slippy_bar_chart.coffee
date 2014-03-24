@@ -1,7 +1,7 @@
 define ['jquery', 'd3'], ($, d3) ->
   class SlippyBarChart
     CHART_PADDING = 30
-    Y_PADDING = 55
+    Y_PADDING = 60
     X_PADDING = 100
     CHART_SPACING = 5
     LABEL_HEIGHT = 128
