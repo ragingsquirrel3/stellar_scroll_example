@@ -53,7 +53,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
     axisFn = d3.svg.axis()
       .orient('bottom')
       .scale(timeScale)
-      .tickSubdivide(10)
+      .ticks(40)
       .tickSize(-20)
       .tickPadding(15)
       .tickFormat (d) ->
@@ -69,7 +69,9 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
       .attr
         id: 'time-scale'
         transform: "translate(70, #{windowHeight - 45})"
-      .call axisFn
+      .call(axisFn)
+      .selectAll('.tick')
+        .classed 'minor', (d) -> d % 500 != 0
 
     # data = [
     #   {
