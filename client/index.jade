@@ -2,7 +2,7 @@
 html
   head
     title Human Traffic, Human Cost
-    link(href="/stylesheets/main.css", rel='stylesheet', type='text/css')
+    link(href="./stylesheets/main.css", rel='stylesheet', type='text/css')
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
 
   body
@@ -25,7 +25,7 @@ html
         
         .scroll-prompt.initial-scroll
           h1 Scroll Right to Begin
-          img(src="../img/arrow.png")
+          img(src="./img/arrow.png")
 
         .human-sprite-container
           .human-sprite.gladiator("data-stellar-ratio"="1")
@@ -70,6 +70,6 @@ html
 
     //- js: Single file in production, otherwise load requirejs
     if process.env.ENV == 'production'
-      script(src='/js/main.js')
+      script(src='./js/main.js')
     else
-      script(data-main='/js/main.js', src='/js/vendor/require.js')
+      script(data-main='./js/main.js', src='./js/vendor/require.js')
