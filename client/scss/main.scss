@@ -105,14 +105,6 @@ p {
 }
 
 .scroll-prompt {
-  position: absolute;
-  width: 475px;
-  height: 100px;
-  margin-top: -50px;
-  right: 25%;
-  top: 50%;
-  z-index: 4;
-
   h1, img {
     display: inline-block;
   }
@@ -120,6 +112,25 @@ p {
     position: relative;
     top: -4px;
   }
+
+  &.initial-scroll {
+    position: absolute;
+    width: 475px;
+    height: 100px;
+    margin-top: -50px;
+    right: 25%;
+    top: 50%;
+    z-index: 4;
+  }
+}
+
+.explanation-container {
+  position: relative;
+  margin: 0 auto;
+  width: 400px;
+  padding: 1em;
+  background-color: #eeeeee;
+  z-index: 4;
 }
 
 #viz {

@@ -19,7 +19,7 @@ define ['jquery', 'd3'], ($, d3) ->
       },
       {
         label: 'Modern Human Trafficking'
-        year: 3000
+        year: 3100
         klass: 'modern'
       }
     ]
@@ -127,7 +127,7 @@ define ['jquery', 'd3'], ($, d3) ->
         .style
           width: "#{@barWidth}px"
           height: '0px'
-          bottom: "#{Y_PADDING+CHART_PADDING-CHART_SPACING}px"
+          bottom: "#{Y_PADDING+CHART_PADDING + CHART_SPACING}px"
         .each (d) ->
           d3.select(@).transition().duration(1000)
             .style
@@ -159,7 +159,7 @@ define ['jquery', 'd3'], ($, d3) ->
         .attr
           class: (d) -> "#{d.klass} era-label"
         .style
-          top: (d, i) -> "#{(i + 1) * 1.25}em"
+          top: (d, i) -> "#{i * 1.25}em"
           left: (d) => "#{@timeScale(d.year)}px"
         .text (d) -> d.label
           
@@ -170,7 +170,7 @@ define ['jquery', 'd3'], ($, d3) ->
             # original point along timeline
             xAtYear = @timeScale d.year
             # if scrolling position is less than timeline position, scroll with page
-            if @_fixedLeftFromData(d, i, xLeft) < xAtYear
+            if @_fixedLeftFromData(d, 0, xLeft) < xAtYear
               "#{xAtYear}px"
             # otherwise, final 'fixed' state
             else

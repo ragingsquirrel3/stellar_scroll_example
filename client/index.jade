@@ -20,13 +20,10 @@ html
       .scrolling-zone.intro
         .jumbotron
           h1 Human Traffic, Human Cost
-          p= 'Entered as part of the '
-            a(href="http://www.informationisbeautifulawards.com/2014/02/data-viz-challenge-human-cost/") Kantar Information Is Beautiful Awards.
-            span= '  The data can be found '
-            a(href="http://bit.ly/human_costs#sthash.xfoqddP5.dpuf")= 'here'
-            | .
+          p= 'Lovingly crafted as part of the '
+            a(href="http://www.informationisbeautifulawards.com/2014/02/data-viz-challenge-human-cost/", target='_blank') Kantar Information Is Beautiful Awards.
         
-        .scroll-prompt
+        .scroll-prompt.initial-scroll
           h1 Scroll Right to Begin
           img(src="../img/arrow.png")
 
@@ -40,6 +37,17 @@ html
           .human-sprite.child2("data-stellar-ratio"="1.1")
 
       .scrolling-zone
+        .explanation-container
+          h1 About this Visualization
+          p
+            | Historical prices for slaves at various points in history have been converted to inflation-adjusted modern US dollars.
+            | We can then compare these figures to the prices for various forms of human trafficking in the modern world.
+            span= '  The data can be found '
+              a(href="http://bit.ly/human_costs#sthash.xfoqddP5.dpuf", target='_blank')= 'here'
+              | .
+          .scroll-prompt
+            h1 Continue
+            img(src="../img/arrow.png")
       .scrolling-zone.antiquity
         .egyptian-container
           .egyptian.egyptian-1("data-stellar-ratio"="1")
