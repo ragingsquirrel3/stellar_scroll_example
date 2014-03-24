@@ -4,6 +4,10 @@ html
     title Human Traffic, Human Cost
     link(href="./stylesheets/main.css", rel='stylesheet', type='text/css')
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    //- facebook meta tags
+    meta(property='og:image', content='./img/thumbnail.png')
+    meta(property='og:title', content='Human Traffic, Human Cost')
+    meta(property='og:description', content='Historical prices for slaves at various points in history have been converted to inflation-adjusted modern US dollars.  We can then compare these figures to the prices for various forms of human trafficking in the modern world.')
 
   body
     #background-zone
@@ -20,7 +24,9 @@ html
       .scrolling-zone.intro
         .jumbotron
           h1 Human Traffic, Human Cost
-          p= 'Lovingly crafted as part of the '
+          p= 'Lovingly crafted '
+            a(href='http://two-n.com', target='_blank') by our team
+            span= ' as part of the '
             a(href="http://www.informationisbeautifulawards.com/2014/02/data-viz-challenge-human-cost/", target='_blank') Kantar Information Is Beautiful Awards.
         
         .scroll-prompt.initial-scroll
