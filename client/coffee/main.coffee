@@ -55,6 +55,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
       .scale(timeScale)
       .tickSubdivide(10)
       .tickSize(-20)
+      .tickPadding(15)
       .tickFormat (d) ->
         if d < 0 then d * -1 + " BCE"
         else if d == 0 then d
@@ -67,7 +68,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
     axis.enter().append('g')
       .attr
         id: 'time-scale'
-        transform: "translate(70, #{windowHeight - 30})"
+        transform: "translate(70, #{windowHeight - 45})"
       .call axisFn
 
     # data = [

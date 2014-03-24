@@ -20,12 +20,14 @@ p {
   stroke-width: 1;
   shape-rendering: crispEdges;
   .tick line{
+    stroke-linecap: round;
     stroke-width: 15;
+
   }
   .tick text{
     fill:white;
     stroke:none;
-    font-size: 16pt;
+    font-size: 18pt;
   }
 }
 
