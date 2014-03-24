@@ -1,7 +1,7 @@
 define ['jquery', 'd3'], ($, d3) ->
   class SlippyBarChart
     CHART_PADDING = 30
-    Y_PADDING = 30
+    Y_PADDING = 55
     X_PADDING = 70
     CHART_SPACING = 5
     LABEL_HEIGHT = 128
@@ -45,7 +45,7 @@ define ['jquery', 'd3'], ($, d3) ->
 
       @yScale = d3.scale.linear()
         .domain([0, 100000])
-        .range([@windowHeight - 2* CHART_PADDING , 0])
+        .range([@windowHeight - 2* Y_PADDING , Y_PADDING])
 
       @_renderyScale(windowWidth)
 
@@ -55,12 +55,12 @@ define ['jquery', 'd3'], ($, d3) ->
         .scale(@yScale)
         .tickSize(width-2*X_PADDING)
 
-
+      commaformat = d3.format(",.0f")
       yAxisfn = d3.svg.axis()
         .orient("left")
         .scale(@yScale)
         .tickFormat (d) ->
-          "$" + d
+          "$" + commaformat(d)
 
       svg = d3.select('#y-axis').selectAll('svg').data([null])
       svg.enter().append('svg')
@@ -126,7 +126,7 @@ define ['jquery', 'd3'], ($, d3) ->
         .style
           width: "#{@barWidth}px"
           height: '0px'
-          bottom: "#{CHART_PADDING}px"
+          bottom: "#{Y_PADDING+CHART_PADDING-CHART_SPACING}px"
         .each (d) ->
           d3.select(@).transition().duration(1000)
             .style
