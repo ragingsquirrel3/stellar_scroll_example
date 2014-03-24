@@ -19,6 +19,14 @@ p {
   stroke: white;
   stroke-width: 1;
   shape-rendering: crispEdges;
+  .tick line{
+    stroke-width: 15;
+  }
+  .tick text{
+    fill:white;
+    stroke:none;
+    font-size: 16pt;
+  }
 }
 
 #price-scale {
