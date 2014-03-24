@@ -70,7 +70,7 @@ p {
   position:fixed;
   width:100%;
   height:100%;
-  z-index:2;
+  z-index:6;
 }
 
 #background-zone {
@@ -141,7 +141,7 @@ p {
   width: 100%;
   height: 100%;
   top: 0;
-  z-index: 2;
+  z-index: 6;
   padding-right:70px;
   svg {
     height: 100%;
@@ -272,38 +272,34 @@ p {
 
 .egyptian {
   position: absolute;
+  display: block;
   height: 191px;
-  &.egyptian-1 {
-    background-image: url("../img/egypt1.png");
-    width: 161px;
-  }
-  &.egyptian-2 {
-    width: 130px;
-    background-image: url("../img/egypt2.png");
-  }
   &.b {
-    top: 5px;
+    top: 25px;
     left: 50px;
+    height: 100px;
   }
   &.c {
     top: 15px;
     left: 80px;
+    height: 140px;
   }
   &.d {
-    top: 20px;
+    top: 0px;
     left: 105px;
+    height: 240px;
   }
 }
 
 .arches-container {
   top: 150px;
-  left: 55%;
+  left: 40%;
 }
 
 .arch {
   position: absolute;
-  width: 521px;
-  height: 178px;
+  width: 1100px;
+  height: 174px;
   background-image: url("../img/arches_sprite.png");
   &.arch1 {
     background-position-y: 180px;
@@ -316,7 +312,7 @@ p {
 // colonial
 
 .colonial-container {
-  top: 100px;
+  top: 102px;
   left: 5%;
 }
 
@@ -331,7 +327,7 @@ p {
 .slave-auction {
   position: absolute;
   width: 390px;
-  height: 499px;
+  height: 479px;
   background-image: url("../img/slave_auction.png");
 }
 
