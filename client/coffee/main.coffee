@@ -48,8 +48,8 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
     # TEMP
     # declare a scalle from year 500 BCE to 2050, with range corresponding to height
     timeScale = d3.scale.linear()
-      .domain([-2500, 4000])
-      .range([0, windowWidth * NUM_SCROLLERS * SCROLLER_SIZE_FACTOR])
+      .domain([-2500, 2000])
+      .range([0, windowWidth * (NUM_SCROLLERS - 2) * SCROLLER_SIZE_FACTOR])
     axisFn = d3.svg.axis()
       .orient('bottom')
       .scale(timeScale)
@@ -106,7 +106,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
       chart.render
         yearAtLeft: _yearAtLeft
         xLeft: xLeft
-        data: if _yearAtLeft < 3000 then preModernData else data
+        data: if _yearAtLeft < 2750 then preModernData else data
 
 
     # activate stellar scroll parallax scroll effect

@@ -9,17 +9,17 @@ define ['jquery', 'd3'], ($, d3) ->
     ERA_LABELS_DATA = [
       {
         label: 'Slavery in Antiquity'
-        year: -600
+        year: -690
         klass: 'antiquity'
       },
       {
         label: 'Atlantic Slave Trade'
-        year: 1250
+        year: 1110
         klass: 'colonial'
       },
       {
         label: 'Modern Human Trafficking'
-        year: 3100
+        year: 2920
         klass: 'modern'
       }
     ]
@@ -97,7 +97,7 @@ define ['jquery', 'd3'], ($, d3) ->
     _changeBackgroundImage: (year) ->
       newEra = if year < -500
         'antiquity'
-      else if year < 1400
+      else if year < 1250
         'colonial'
       else
         'modern'
