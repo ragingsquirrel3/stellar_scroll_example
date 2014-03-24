@@ -2,7 +2,6 @@ VENDOR = "vendor"
 requirejs.config
   paths:
     'jquery': "#{VENDOR}/jquery.min"
-    'backbone': "#{VENDOR}/backbone.min"
     'underscore': "#{VENDOR}/underscore.min"
     'jade': "#{VENDOR}/jade.min"
     'stellar': "#{VENDOR}/stellar.min"
@@ -12,16 +11,13 @@ requirejs.config
     'stellar':
       deps: ['jquery']
       exports: 'stellar'
-    'backbone':
-      deps: ['underscore', 'jquery']
-      exports: 'Backbone'
     'underscore': exports: '_'
     'jade': exports: 'jade'
     'd3': exports: 'd3'
 
 requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3, SlippyBarChart, _) ->
   NUM_SCROLLERS = 7
-  SCROLLER_SIZE_FACTOR = 1.5
+  SCROLLER_SIZE_FACTOR = 1.25
 
   windowWidth = $(window).width()
 
@@ -29,7 +25,6 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
   # make each scrolling zone's width equal to window width
   $('.scrolling-zone').width windowWidth * SCROLLER_SIZE_FACTOR
   $('#scroll-container').width windowWidth * NUM_SCROLLERS * SCROLLER_SIZE_FACTOR
-
 
   # open and parse the data csv, render when data is ready
   parseFn = (d) ->
@@ -41,7 +36,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
       Number d.year
     price: Number(d.inflationAdjusted.split(',').join(''))
     year: _year
-    label: "#{d.context} #{d.detail}"
+    label: d.label
     klass: d.klass ? ''
 
   # load the data and render
@@ -58,9 +53,11 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
     axisFn = d3.svg.axis()
       .orient('bottom')
       .scale(timeScale)
+      .tickSubdivide(10)
+      .tickSize(10, 5, 0)
       .tickFormat (d) ->
         if d < 0 then d * -1 + " BC"
-        else if d is 0 then d
+        else if d == 0 then d
         else d + " AD"
 
     svg = d3.select('#viz').selectAll('svg').data([null])
