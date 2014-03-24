@@ -14,11 +14,20 @@ p {
   font-family: Roboto, sans-serif;
 }
 
-#time-scale, #price-scale, #price-scale-lines{
+#time-scale, #price-scale-lines{
   fill: none;
   stroke: white;
   stroke-width: 1;
   shape-rendering: crispEdges;
+}
+
+#price-scale {
+  fill: none;
+  stroke: white;
+  shape-rendering: crispEdges;
+  .domain {
+    stroke: none;
+  }
 }
 
 #price-scale-lines{
@@ -30,13 +39,17 @@ p {
     text{
       fill:none;
     }
-  } 
+  }
+  .domain {
+    stroke: none;
+  }
+
 
 }
 
 .tick{
   line{
-    stroke-width: 10;
+    stroke-width: 3;
   }
   text{
     fill:white;
@@ -148,7 +161,7 @@ p {
   }
 
   &.modern {
-    background-color: white;
+    background-color: #ddd;
     z-index: 1;
   }
 }

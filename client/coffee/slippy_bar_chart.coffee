@@ -2,7 +2,7 @@ define ['jquery', 'd3'], ($, d3) ->
   class SlippyBarChart
     CHART_PADDING = 30
     Y_PADDING = 55
-    X_PADDING = 70
+    X_PADDING = 100
     CHART_SPACING = 5
     LABEL_HEIGHT = 128
     # data for time period labels
@@ -59,7 +59,7 @@ define ['jquery', 'd3'], ($, d3) ->
       yAxisfn = d3.svg.axis()
         .orient("left")
         .scale(@yScale)
-        .tickSize(-10, 3, 3)
+        .tickSize(10)
         .tickFormat (d) ->
           "$" + commaformat(d)
 
