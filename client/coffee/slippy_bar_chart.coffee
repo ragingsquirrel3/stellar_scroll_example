@@ -59,6 +59,7 @@ define ['jquery', 'd3'], ($, d3) ->
       yAxisfn = d3.svg.axis()
         .orient("left")
         .scale(@yScale)
+        .tickSize(-10, 3, 3)
         .tickFormat (d) ->
           "$" + commaformat(d)
 
@@ -130,7 +131,7 @@ define ['jquery', 'd3'], ($, d3) ->
         .each (d) ->
           d3.select(@).transition().duration(1000)
             .style
-              height: (d) => "#{Math.max(windowHeight - yScale(d.price) - 75, 1)}px"
+              height: (d) => "#{Math.max(windowHeight - 2 * Y_PADDING - yScale(d.price), 1)}px"
         .html (d) => @_labelHtmlForData d
 
 
