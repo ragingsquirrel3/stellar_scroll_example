@@ -95,7 +95,7 @@ define ['jquery', 'd3'], ($, d3) ->
 
     # based on year, selects which background should be active
     _changeBackgroundImage: (year) ->
-      newEra = if year < -500
+      newEra = if year < -675
         'antiquity'
       else if year < 1250
         'colonial'
