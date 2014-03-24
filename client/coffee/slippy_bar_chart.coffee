@@ -1,9 +1,10 @@
 define ['jquery', 'd3'], ($, d3) ->
   class SlippyBarChart
+    IS_SMALL_VIEWPORT = window.innerWidth <= 650
     CHART_PADDING = 30
     Y_PADDING = 65
-    X_PADDING = 100
-    CHART_SPACING = 5
+    X_PADDING = if IS_SMALL_VIEWPORT then 60 else 120
+    CHART_SPACING = 2#5
     LABEL_HEIGHT = 128
     # data for time period labels
     ERA_LABELS_DATA = [
@@ -41,7 +42,7 @@ define ['jquery', 'd3'], ($, d3) ->
       @windowHeight = options.windowHeight ? 400
 
       # calc bar width based on window size and data points
-      @barWidth = (windowWidth - (2 * X_PADDING)) / @data.length - CHART_SPACING
+      @barWidth = Math.max 4, (windowWidth - (2 * X_PADDING)) / @data.length - CHART_SPACING
 
       @yScale = d3.scale.linear()
         .domain([0, 100000])
