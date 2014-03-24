@@ -18,21 +18,12 @@ requirejs.config
 requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3, SlippyBarChart, _) ->
   NUM_SCROLLERS = 7
   SCROLLER_SIZE_FACTOR = 1.25
-  promptIsVisible = true
 
   windowWidth = $(window).width()
 
   # make each scrolling zone's width equal to window width
   $('.scrolling-zone').width windowWidth * SCROLLER_SIZE_FACTOR
   $('#scroll-container').width windowWidth * NUM_SCROLLERS * SCROLLER_SIZE_FACTOR
-  
-  # on clicking the prompt, scroll a little to the right and hide the prompt
-  $('#scroll-prompt').click (e) ->
-    # TODO, scroll to the right
-    $('html, body').animate { scrollLeft: windowWidth * 2/3 }, 500
-    promptIsVisible = false
-    $(e.currentTarget).fadeOut()
-
 
   # open and parse the data csv, render when data is ready
   parseFn = (d) ->
@@ -103,7 +94,6 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
       data: preModernData
 
     $(window).scroll (e) ->
-      if promptIsVisible then $('#scroll-prompt').fadeOut()
       xLeft = $(window).scrollLeft()
       _yearAtLeft = timeScale.invert xLeft + 50
       chart.render

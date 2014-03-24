@@ -45,18 +45,22 @@ p {
   z-index: 3;
 }
 
-#scroll-prompt {
-  position: fixed;
-  width: 100px;
+.scroll-prompt {
+  position: absolute;
+  width: 475px;
   height: 100px;
   margin-top: -50px;
-  right: 5em;
+  right: 25%;
   top: 50%;
-  cursor: pointer;
-  //temp
-  border: 1px solid red;
-  
   z-index: 4;
+
+  h1, img {
+    display: inline-block;
+  }
+  img {
+    position: relative;
+    top: -4px;
+  }
 }
 
 #viz {
@@ -141,7 +145,6 @@ p {
   &.woman1 {
     width: 122px;
     background-position-x: -478px;
-    top: 5%;
     left: 65%;
   }
   &.child1 {
