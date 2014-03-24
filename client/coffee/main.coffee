@@ -29,7 +29,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
   # on clicking the prompt, scroll a little to the right and hide the prompt
   $('#scroll-prompt').click (e) ->
     # TODO, scroll to the right
-    console.log 'scroll me gently'
+    $('html, body').animate { scrollLeft: windowWidth * 2/3 }, 500
     promptIsVisible = false
     $(e.currentTarget).fadeOut()
 
@@ -44,7 +44,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
       Number d.year
     price: Number(d.inflationAdjusted.split(',').join(''))
     year: _year
-    label: "#{d.context} #{d.detail}"
+    label: d.label
     klass: d.klass ? ''
 
   # load the data and render

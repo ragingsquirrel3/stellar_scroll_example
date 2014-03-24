@@ -123,7 +123,7 @@ define ['jquery', 'd3'], ($, d3) ->
         .attr
           class: (d) -> "#{d.klass} era-label"
         .style
-          top: (d, i) -> "#{i + 1}em"
+          top: (d, i) -> "#{(i + 1) * 1.25}em"
           left: (d) => "#{@timeScale(d.year)}px"
         .text (d) -> d.label
           
