@@ -69,6 +69,10 @@ module.exports = (grunt) ->
           ext: ".js"
         ]
 
+    env:
+      production:
+        ENV: 'production'
+
     requirejs:
       production:
         options:
@@ -158,24 +162,6 @@ module.exports = (grunt) ->
       sass:
         files: ["#{APP_PATH}/scss/**/*.scss"]
         tasks: 'sass:development' 
-
-  grunt.registerTask 'clientTemplates', 'Compile and concatenate Jade templates for client.', ->
-    # object to map template identifiers to content (built from jade file)
-    # in js, use a template with JST['index'] (assuming templates is defined as JST)
-    templates =
-      'index': "#{TEMPLATES_PATH}/index.jade"
-
-    tmplFileContents = "define(['jade'], function(jade) {\n"
-    tmplFileContents += 'var JST = {};\n'  
-
-    for namespace, filename of templates
-      path = "#{__dirname}/#{filename}"
-      contents = jade.compile(
-        fs.readFileSync(path, 'utf8'), { client: true, compileDebug: false, filename: path }
-      ).toString()
-      tmplFileContents += "JST['#{namespace}'] = #{contents};\n"
-      
-    fs.writeFileSync "#{JS_DEV_BUILD_PATH}/templates.js", tmplFileContents
         
   grunt.registerTask 'test', [
     'development'
@@ -189,7 +175,6 @@ module.exports = (grunt) ->
     'sass:development'
     'coffee:development'
     'jade:development'
-    'clientTemplates'
   ]  
 
   grunt.registerTask 'pre_production',[
@@ -198,17 +183,17 @@ module.exports = (grunt) ->
     'sass:development'
     'coffee:development'
     'jade:development'
-    'clientTemplates'
   ]
 
   grunt.registerTask 'production', [
+    'env:production'
     'clean:production'
     'pre_production'
     'copy:production'
     'clean:js_pre_production'
     'sass:production'
+    'jade:production'
     'requirejs:production'
-    # 'clientTemplates'
   ]   
         
   grunt.registerTask 'default', [
