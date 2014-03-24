@@ -53,7 +53,7 @@ define ['jquery', 'd3'], ($, d3) ->
       yLinesfn = d3.svg.axis()
         .orient("right")
         .scale(@yScale)
-        .tickSize(width-X_PADDING)
+        .tickSize(width-2*X_PADDING)
 
 
       yAxisfn = d3.svg.axis()
@@ -61,7 +61,6 @@ define ['jquery', 'd3'], ($, d3) ->
         .scale(@yScale)
         .tickFormat (d) ->
           "$" + d
-        
 
       svg = d3.select('#y-axis').selectAll('svg').data([null])
       svg.enter().append('svg')
