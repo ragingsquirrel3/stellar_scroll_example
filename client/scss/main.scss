@@ -36,7 +36,7 @@ p {
     font-family: Alegreya, serif;
     font-variant: small-caps;
   }
-  
+
   .tick.minor {
     text {
       display: none;
@@ -46,7 +46,7 @@ p {
       opacity: .5;
     }
   }
-  
+
   .domain {
     display: none;
   }
@@ -86,14 +86,14 @@ p {
     fill:white;
     stroke:none;
   }
-} 
+}
 
 #y-axis{
   position:fixed;
   width:100%;
   height:100%;
   z-index:6;
-  
+
   .tick {
     text {
       font-size: 1.2em;
@@ -130,7 +130,7 @@ p {
     background-image: url("../img/slavery.jpg");
   }
   &.modern {
-   background-image: url("../img/child_soldiers.jpg"); 
+   background-image: url("../img/child_soldiers.jpg");
   }
 
 }
@@ -232,16 +232,35 @@ p {
 .human-sprite {
   position: absolute;
   background-image: url("../img/human_cost_silhouettes.png");
-  min-width: 50px;
+  background-repeat: no-repeat;
+  // min-width: 50px;
   height: 335px;
   left: 50%;
   top: 30%;
+
+  $icon-factor: 8;
+  $background-size: 1613px;
+  &.icon {
+    display: inline-block;
+    margin: 0 12px 0 6px;
+    position: static !important;
+    // top: auto !important;
+    // left: 0 !important;
+    // bottom: 100%;
+    height: 334px / $icon-factor !important;
+    background-size: $background-size / $icon-factor;
+  }
 
   &.gladiator {
     width: 155px;
     top: 5%;
     left: 25%;
+
+    &.icon {
+      width: 155px / $icon-factor;
+    }
   }
+
   &.children {
     width: 212px;
     height: 334px;
@@ -249,32 +268,124 @@ p {
     top: 39%;
     left: 7%;
   }
+  &.children_left {
+    width: 109px;
+    height: 334px;
+    background-position-x: -219px;
+    top: 39%;
+    left: 7%;
+
+    &.icon {
+      width: 109px / $icon-factor;
+      background-position-x: -219px / $icon-factor;
+    }
+  }
+  &.children_right {
+    width: 103px;
+    height: 334px;
+    background-position-x: -328px;
+    top: 39%;
+    left: 7%;
+
+    &.icon {
+      width: 103px / $icon-factor;
+      background-position-x: -328px / $icon-factor;
+    }
+  }
+  &.children_right_young {
+    width: 103px;
+    height: 334px;
+    background-position-x: -328px;
+    top: 39%;
+    left: 7%;
+
+    &.icon {
+      $youngchild-icon-factor: $icon-factor + 2.5;
+      width: 103px / $youngchild-icon-factor;
+      background-position-x: -328px / $youngchild-icon-factor;
+      background-position-y: 9px;
+      background-size: $background-size / $youngchild-icon-factor;
+    }
+  }
   &.woman1 {
     width: 122px;
     background-position-x: -478px;
     left: 65%;
+
+    &.icon {
+      width: 122px / $icon-factor;
+      background-position-x: -478px / $icon-factor;
+    }
   }
   &.child1 {
     width: 156px;
     background-position-x: -607px;
     top: 46%;
     left: 80%;
+
+    &.icon {
+      $child1-icon-factor: $icon-factor - 2;
+      width: 156px / $child1-icon-factor;
+      background-position-x: -607px / $child1-icon-factor;
+      background-position-y: -13px;
+      background-size: $background-size / $child1-icon-factor;
+    }
   }
   &.woman2 {
     width: 235px;
     background-position-x: -767px;
     top: 45%;
     left: 33%;
+
+    &.icon {
+      width: 235px / $icon-factor;
+      background-position-x: -767px / $icon-factor;
+    }
   }
   &.baby {
     width: 232px;
     background-position-x: -1020px;
     top: 20%;
     left: 74%;
+
+    &.icon {
+      $baby-icon-factor: $icon-factor + 6;
+
+      width: 232px / $baby-icon-factor;
+      background-position-x: -1020px / $baby-icon-factor;
+      background-position-y: 14px;
+      background-size: $background-size / $baby-icon-factor;
+    }
+  }
+  &.man1 {
+    width: 123px;
+    background-position-x: -1267px;
+
+    &.icon {
+      $man1-icon-factor: $icon-factor - 1.5;
+      width: 123px / $man1-icon-factor;
+      background-position-x: -1267px / $man1-icon-factor;
+      background-position-y: -8px;
+      background-size: $background-size / $man1-icon-factor;
+    }
   }
   &.child2 {
     width: 79px;
     background-position-x: -1412px;
+
+    &.icon {
+      width: 79px / $icon-factor;
+      background-position-x: -1412px / $icon-factor;
+    }
+  }
+  &.man2 {
+    width: 91px;
+    background-position-x: -1521px;
+
+    &.icon {
+      width: 91px / $icon-factor;
+      background-position-x: -1521px / $icon-factor;
+    }
   }
 }
 
@@ -403,7 +514,7 @@ h1 {
   h1 {
     font-size: 36px;
   }
-  
+
   .scroll-prompt {
     img {
       width: auto;

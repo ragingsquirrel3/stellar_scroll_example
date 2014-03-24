@@ -36,6 +36,7 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
       Number d.year
     price: Number(d.inflationAdjusted.split(',').join(''))
     year: _year
+    icon: d.icon
     label: d.label
     klass: d.klass ? ''
 

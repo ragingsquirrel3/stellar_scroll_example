@@ -3,7 +3,7 @@
 .bar {
   position: absolute;
   background-color: red;
-  
+
   // // transitions
   // -webkit-transition: height 1s; // For Safari 3.1 to 6.0
   // transition: height 1s;
@@ -24,35 +24,50 @@
 
   &.antiquity {
     background-color: #D4D5C0;
+    &:hover {
+      background-color: lighten(#D4D5C0, 10%);
+    }
   }
   &.colonial {
     background-color: #5f6673;
+    &:hover {
+      background-color: lighten(#5f6673, 10%);
+    }
   }
   &.modern {
     background-color: #bb5151;
+    &:hover {
+      background-color: lighten(#bb5151, 10%);
+    }
   }
 }
 
 // labels
 .bar-label {
   position: absolute;
-  width: 200px;
-  top: -100px;
+  width: 220px;
+  background-color: hsla(0, 0, 100%, 0.65);
+  padding: 6px 10px 8px 12px;
+  bottom: 100%;
+  right: 0;
   opacity: 1;
   z-index: 1;
   pointer-events: none;
   color: black;
 
-  -webkit-transition: opacity 1s; // For Safari 3.1 to 6.0
-  transition: opacity 1s;
+  -webkit-transition: opacity 600ms; // For Safari 3.1 to 6.0
+  transition: opacity 600ms;
 
   &.tall {
-    top: 0;
-    left: 38px;
+    right: 100%;
+    bottom: auto !important;
   }
 
-  &.right {
-    left: -115px;
+  // &.right {
+  //   left: -115px;
+  // }
+  &.left {
+    right: -115px;
   }
 
   // &.antiquity {
@@ -61,17 +76,22 @@
   // &.colonial {
   //   color: #0c2612;
   // }
+
+  p {
+    margin-bottom: 0;
+  }
 }
 
 .label-price {
   font-family: Roboto, sans-serif;
+  margin: 0;
 }
 
 .era-label {
   position: absolute;
   font-family: Alegreya, serif;
   font-size: 20px;
-  
+
   &.antiquity {
     color: #D4D5C0;
   }

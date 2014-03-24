@@ -85,8 +85,13 @@ define ['jquery', 'd3'], ($, d3) ->
       priceAsString = "$#{d3.format(",.0f")(d.price)}"
       """
         <div class='#{d.klass} bar-label'>
-          <h1 class='label-price'>#{priceAsString}</h1>
-          <p>#{d.label}</p>
+
+          <h1 class='label-price'>
+      """+
+            (if d.icon then """<div class='human-sprite #{d.icon} icon'></div>""" else '')+
+      """#{priceAsString}
+          </h1>
+          <p>#{d.label.replace('\\n', '<br/>')}</p>
         </div>
       """
 
@@ -122,7 +127,7 @@ define ['jquery', 'd3'], ($, d3) ->
       bars = d3.select('#bar-target').selectAll('.bar').data data
 
       # enter
-      bars.enter().append('div')
+      enter = bars.enter().append('div')
         .attr
           class: (d) -> "#{d.klass} bar"
         .style
@@ -133,7 +138,15 @@ define ['jquery', 'd3'], ($, d3) ->
           d3.select(@).transition().duration(1000)
             .style
               height: (d) => "#{Math.max(windowHeight - 2 * Y_PADDING - yScale(d.price), 1)}px"
-        .html (d) => @_labelHtmlForData d
+        .html((d) => @_labelHtmlForData d)
+      enter.append('div')
+        .attr
+          class: 'hoverzone'
+        .style
+          position: 'absolute'
+          height: "#{ windowHeight - 2 * Y_PADDING }px"
+          bottom: '0px'
+          width: "#{@barWidth + CHART_SPACING}px"
 
 
       # update
@@ -151,10 +164,10 @@ define ['jquery', 'd3'], ($, d3) ->
         .classed 'inactive', (d, i) =>
           xAtYear = @timeScale d.year
           !(@_fixedLeftFromData(d, i, xLeft) < xAtYear)
-          
+
       # time period labels
       labels = d3.select('#bar-target').selectAll('.era-label').data ERA_LABELS_DATA
-      
+
       # enter
       labels.enter().append('h1')
         .attr
@@ -163,7 +176,7 @@ define ['jquery', 'd3'], ($, d3) ->
           top: (d, i) -> "#{i * 1.25}em"
           left: (d) => "#{@timeScale(d.year)}px"
         .text (d) -> d.label
-          
+
       #update
       labels
         .style
