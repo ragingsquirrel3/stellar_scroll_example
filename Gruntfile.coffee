@@ -12,6 +12,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-sass'
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-clean'
+  grunt.loadNpmTasks 'grunt-contrib-requirejs'
   grunt.loadNpmTasks 'grunt-mocha-test'
   grunt.loadNpmTasks 'grunt-env'
   
@@ -22,12 +23,29 @@ module.exports = (grunt) ->
   JS_DEV_BUILD_PATH = "#{DEV_BUILD_PATH}/js"
   PRODUCTION_BUILD_PATH = "#{BUILD_PATH}/production"
   SERVER_PATH = "server"
+  VENDOR = "vendor"
+  REQUIRE_PATH = 
+    'jquery': "#{VENDOR}/jquery.min" # "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min"
+    'backbone': "#{VENDOR}/backbone.min"
+    'underscore': "#{VENDOR}/underscore.min"
+    'stellar' : "#{VENDOR}/stellar.min"
+    'd3': "#{VENDOR}/d3.min"
+    'jade': "#{VENDOR}/jade.min"
+  REQUIRE_SHIM =
+    'jquery': exports: '$'
+    'backbone':
+      deps: ['underscore', 'jquery']
+      exports: 'Backbone'
+    'underscore': exports: '_'
+    'jade': exports: 'jade'
+    'd3': exports: 'd3'
   
   grunt.initConfig
 
     clean:
       development: [DEV_BUILD_PATH]
       production: [PRODUCTION_BUILD_PATH]
+      js_pre_production: ["#{PRODUCTION_BUILD_PATH}/js"]
 
     coffee:
       development:
@@ -40,16 +58,26 @@ module.exports = (grunt) ->
           src: ["*.coffee", "**/*.coffee"]
           ext: ".js"
         ]
-      production:
+      pre_production:
         options:
-          sourceMap: true
-        files: [
+          sourceMap:false
+        files: [  
           expand: true
           cwd: "#{APP_PATH}/coffee"
-          dest: "#{PRODUCTION_BUILD_PATH}/js"
+          dest: "#{DEV_BUILD_PATH}/js"
           src: ["*.coffee", "**/*.coffee"]
           ext: ".js"
         ]
+
+    requirejs:
+      production:
+        options:
+          baseUrl: JS_DEV_BUILD_PATH
+          name: 'main'
+          paths: REQUIRE_PATH
+          shim: REQUIRE_SHIM
+          out: "#{PRODUCTION_BUILD_PATH}/js/main.js"
+          include: "#{VENDOR}/require"
 
     copy:
       development:
@@ -164,12 +192,22 @@ module.exports = (grunt) ->
     'clientTemplates'
   ]  
 
+  grunt.registerTask 'pre_production',[
+    'clean:development'
+    'copy:development'
+    'sass:development'
+    'coffee:development'
+    'jade:development'
+    'clientTemplates'
+  ]
+
   grunt.registerTask 'production', [
     'clean:production'
+    'pre_production'
     'copy:production'
+    'clean:js_pre_production'
     'sass:production'
-    'coffee:production'
-    'jade:production'
+    'requirejs:production'
     # 'clientTemplates'
   ]   
         
