@@ -66,6 +66,8 @@ define ['jquery', 'd3'], ($, d3) ->
 
       svg = d3.select('#y-axis').selectAll('svg').data([null])
       svg.enter().append('svg')
+      svg.attr
+        height: '100%'
 
       yAxis = svg.selectAll('#price-scale').data([null])
       yAxis.enter().append('g')
