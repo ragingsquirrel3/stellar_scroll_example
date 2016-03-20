@@ -64,6 +64,8 @@ requirejs ['jquery', 'd3', 'slippy_bar_chart', 'underscore', 'stellar'], ($, d3,
 
     svg = d3.select('#viz').selectAll('svg').data([null])
     svg.enter().append('svg')
+      .attr
+        width: windowWidth * NUM_SCROLLERS * SCROLLER_SIZE_FACTOR
 
     axis = svg.selectAll('#time-scale').data([null])
     axis.enter().append('g')
